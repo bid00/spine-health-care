@@ -1,0 +1,324 @@
+openapi: 3.0.0
+info:
+  title: Medical Report & Reservation API
+  version: 1.0.0
+  description: API documentation for authentication, reports, reservations, contact form, and user profile
+servers:
+  - url: http://localhost:3000
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+paths:
+  /api/auth/signup:
+    post:
+      summary: Register a new user
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - firstName
+                - lastName
+                - email
+                - password
+              properties:
+                firstName:
+                  type: string
+                lastName:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        201:
+          description: User registered successfully
+        400:
+          description: Account with same Email exists
+
+  /api/auth/login:
+    post:
+      summary: Log in a user
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        200:
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: Id of the user
+                  email:
+                    type: string
+                    description: user's email
+                  accessToken:
+                    type: string
+                    description: JWT token for authentication
+                  
+        400:
+          description: email or password is invalid
+
+  /api/mail/contact:
+    post:
+      summary: Send a contact message
+      tags:
+        - Mail
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - firstName
+                - lastName
+                - email
+                - subject
+                - message
+              properties:
+                firstName:
+                  type: string
+                lastName:
+                  type: string
+                email:
+                  type: string
+                subject:
+                  type: string
+                message:
+                  type: string
+      responses:
+        200:
+          description: Message sent successfully
+
+  /api/report/new:
+    post:
+      summary: Submit a new report with picture
+      tags:
+        - Reports
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                picture:
+                  type: string
+                  format: binary
+      responses:
+        200:
+          description: Report created
+
+  /api/report/:
+    get:
+      summary: Get user reports
+      tags:
+        - Reports
+      security:
+        - bearerAuth: []
+      responses:
+        200:
+          description: List of reports
+
+  /api/reservations/book:
+    post:
+      summary: Book a new reservation
+      tags:
+        - Reservations
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - date
+                - timeSlot
+                - reportId
+              properties:
+                date:
+                  type: string
+                timeSlot:
+                  type: string
+                reportId:
+                  type: string
+      responses:
+        201:
+          description: Reservation booked
+
+  /api/reservations/:
+    get:
+      summary: Get user reservations
+      tags:
+        - Reservations
+      security:
+        - bearerAuth: []
+      responses:
+        200:
+          description: List of reservations
+
+  /api/reservations/delete:
+    post:
+      summary: Delete a reservation
+      tags:
+        - Reservations
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - reservationId
+              properties:
+                reservationId:
+                  type: string
+      responses:
+        200:
+          description: Reservation deleted
+
+  /api/reservations/edit:
+    patch:
+      summary: Edit a reservation
+      tags:
+        - Reservations
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - reservationId
+                - date
+                - timeSlot
+              properties:
+                reservationId:
+                  type: string
+                date:
+                  type: string
+                timeSlot:
+                  type: string
+      responses:
+        200:
+          description: Reservation edited
+
+  /api/user/getprofile:
+    get:
+      summary: Get current user profile
+      tags:
+        - User
+      security:
+        - bearerAuth: []
+      responses:
+        200:
+          description: User profile
+
+  /api/user/updateprofile:
+    patch:
+      summary: Update user profile
+      tags:
+        - User
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: false
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                firstName:
+                  type: string
+                lastName:
+                  type: string
+                email:
+                  type: string
+                picture:
+                  type: string
+                  format: binary
+      responses:
+        200:
+          description: Profile updated
+
+  /api/user/changepassword:
+    patch:
+      summary: Change user password
+      tags:
+        - User
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - oldPassword
+                - newPassword
+              properties:
+                oldPassword:
+                  type: string
+                newPassword:
+                  type: string
+      responses:
+        200:
+          description: Password changed
+
+  /api/user/deleteaccount:
+    post:
+      summary: Delete user account
+      tags:
+        - User
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - password
+              properties:
+                password:
+                  type: string
+      responses:
+        200:
+          description: Account deleted

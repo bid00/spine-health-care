@@ -9,6 +9,9 @@ import autho from "./middlewares/authoMiddleware.js";
 import userRoutes from "./routes/userRoutes.js";
 import { configDotenv } from "dotenv";
 import mailRoutes from "./routes/mailRoutes.js";
+import swaggerUi from "swagger-ui-express";
+import YAML from "yamljs";
+
 
 configDotenv();
 
@@ -17,16 +20,23 @@ const PORT = process.env.PORT || 8080;
 
 const app = express();
 app.use(express.json());
+
+// @desc Load the YAML file
+const swaggerDocument = YAML.load('documentation.yaml');
+
+// @desc Use Swagger UI
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
 // @desc logging the requests
 app.use(logger);
 
 // @desc cors middleware
 corsMiddleware(app);
 
-//@desc db connection
+// @desc db connection
 connectDB();
 
-//@desc API endpoints for auth
+// @desc API endpoints for auth
 app.use("/api/auth", authRoutes);
 
 // @desc API endpoints for reservations
@@ -35,13 +45,13 @@ app.use("/api/reservations", autho,reservationRoutes);
 // @desc API for reports
 app.use("/api/report",autho, reportRoutes);
 
-//@desc serve the uploads folder
+// @desc serve the uploads folder
 app.use('/uploads', express.static('uploads'));
 
-//@desc API for email and contact us 
+// @desc API for email and contact us 
 app.use('/api/mail',mailRoutes);
 
-//@desc API for user profile
+// @desc API for user profile
 app.use('/api/user',autho,userRoutes);
 
 

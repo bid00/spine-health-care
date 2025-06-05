@@ -12,7 +12,6 @@ const getProfile = async(req,res)=>{
             lastName:user.lastName,
             email:user.email,
             picture:`${req.protocol}://${req.get("host")}${user.picture}`
-
         })
     } catch (error) {
 

@@ -7,7 +7,7 @@ const SECRET = process.env.SECRET;
 
 //@desc authorize user token 
 const autho = async(req,res,next)=>{
-    const accessHeader = req.headers.authorization
+    const accessHeader = req.headers.authorization  // bearer uabsdbsadsaudhsdyhasd
     const accessToken = accessHeader && accessHeader.split(' ')[1];
     if (!accessToken) {
         return res.status(401).json({message: "Access token not found"});
