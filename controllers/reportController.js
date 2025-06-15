@@ -15,9 +15,8 @@ const newReport = async (req,res) => {
             body: JSON.stringify(imageUrl)
         })
         const modelData = await response.json();
-        const {diseaseName , dangerScore} = modelData;
-        console.log(modelData)
-        const report = new Report({userId,dangerScore,diseaseName,picture});
+        const {diseaseName , dangerScore , confidence} = modelData;
+        const report = new Report({userId,picture,dangerScore:parseFloat(dangerScore),diseaseName,confidence:parseFloat(confidence)});
         await report.save();
         return res.status(200).json(report);
     } catch (error) {

@@ -44,6 +44,7 @@ def predict():
         return jsonify({
             'diseaseName': predicted_class,
             'dangerScore': danger_score,
+            'confidence' : float(confidence),
             'message': 'Prediction successful'
         })
 

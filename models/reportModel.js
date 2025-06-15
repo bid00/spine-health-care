@@ -9,14 +9,18 @@ const reportSchema = new mongoose.Schema({
     diseaseName:{
         type:String
     },
+    dangerScore:{
+        type: Number
+    },
+    confidence:{
+        type: Number
+    },
     picture:{
         type:String,
         default:"",
         required:true
     },
-    dangerScore:{
-        type: Number
-    },
+    
     createdAt: {
         type: Date,
         default: Date.now,
