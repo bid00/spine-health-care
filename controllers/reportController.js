@@ -38,6 +38,7 @@ const getReports = async (req,res)=>{
             userId: report.userId,
             diseaseName:report.diseaseName,
             dangerScore:report.dangerScore,
+            confidence:report.confidence,
             picture:`${req.protocol}://${req.get("host")}${report.picture}`
         }));
         return res.status(200).json(updatedReports);
