@@ -12,9 +12,16 @@ model = tf.keras.models.load_model('./eff_model.keras')
 
 @app.route('/predict', methods=['POST'])
 def predict():
+    data = request.get_json()
+
+    if not data or 'picture' not in data:
+        return jsonify({"error": "No image URL provided"}), 400
+
+    
     try:
-        file = request.files['file']
-        img = Image.open(file).convert('RGB')
+        image_url = data['picture']
+        response = requests.get(image_url)
+        img = Image.open(BytesIO(response.content)).convert('RGB')
         img = img.resize((300, 300))
 
         img_array = np.array(img) / 255.0
@@ -35,8 +42,8 @@ def predict():
             danger_score = 10 - int(round(confidence * 10))
 
         return jsonify({
-            'class': predicted_class,
-            'danger_score': danger_score,
+            'diseaseName': predicted_class,
+            'dangerScore': danger_score,
             'message': 'Prediction successful'
         })
 
