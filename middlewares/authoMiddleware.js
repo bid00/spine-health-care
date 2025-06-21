@@ -5,7 +5,7 @@ configDotenv();
 
 const SECRET = process.env.SECRET;
 
-//@desc authorize user token 
+// authorize user token 
 const autho = async(req,res,next)=>{
     const accessHeader = req.headers.authorization  // bearer uabsdbsadsaudhsdyhasd
     const accessToken = accessHeader && accessHeader.split(' ')[1];

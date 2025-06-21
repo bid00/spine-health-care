@@ -1,8 +1,8 @@
 import Report from "../models/reportModel.js";
 
 
-// @desc NEW REPORT
-// @desc /api/report/new
+// NEW REPORT
+// /api/report/new
 const newReport = async (req,res) => {
     const userId = req.user._id;
     const picture = req.file ? `/uploads/report/${req.file.filename}` : null;
@@ -25,8 +25,8 @@ const newReport = async (req,res) => {
 
 }
 
-// @desc get user reports
-// @route /api/report/
+// get user reports
+// /api/report/
 const getReports = async (req,res)=>{
     const userId = req.user._id;
 

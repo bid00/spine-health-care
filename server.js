@@ -21,37 +21,37 @@ const PORT = process.env.PORT || 8080;
 const app = express();
 app.use(express.json());
 
-// @desc Load the YAML file
+// Load the YAML file
 const swaggerDocument = YAML.load('documentation.yaml');
 
-// @desc Use Swagger UI
+// Use Swagger UI
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-// @desc logging the requests
+// logging the requests
 app.use(logger);
 
-// @desc cors middleware
+// cors middleware
 corsMiddleware(app);
 
-// @desc db connection
+// db connection
 connectDB();
 
-// @desc API endpoints for auth
+// API endpoints for auth
 app.use("/api/auth", authRoutes);
 
-// @desc API endpoints for reservations
+// API endpoints for reservations
 app.use("/api/reservations", autho,reservationRoutes);
 
-// @desc API for reports
+// API for reports
 app.use("/api/report",autho, reportRoutes);
 
-// @desc serve the uploads folder
+// serve the uploads folder
 app.use('/uploads', express.static('uploads'));
 
-// @desc API for email and contact us 
+// API for email and contact us 
 app.use('/api/mail',mailRoutes);
 
-// @desc API for user profile
+// API for user profile
 app.use('/api/user',autho,userRoutes);
 
 

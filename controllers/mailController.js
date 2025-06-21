@@ -16,7 +16,7 @@ const transporter = createTransport({
     }
 });
 
-//@desc autoREply handler
+// autoREply handler
 const autoReply = async (email) =>{
     const mailOptions={
         from:{
@@ -36,8 +36,8 @@ const autoReply = async (email) =>{
     };
 };
     
-//@desc handle contact form
-//@route POST /api/mail/contact
+// handle contact form
+// POST /api/mail/contact
 export const contactForm = async (req, res) => {
     const { firstName,lastName, email, subject, message } = req.body;
     if (!firstName || !email ||!lastName|| !subject || !message) {

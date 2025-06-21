@@ -8,8 +8,8 @@ const accessTokenSecret = process.env.SECRET ;
 
 
 
-//@desc register new user and add to database
-//@route POST /api/auth/signup
+// register new user and add to database
+// POST /api/auth/signup
 const register = async (req,res)=>{
     try {
         const {firstName, lastName , email, password }=req.body;
@@ -33,8 +33,8 @@ const register = async (req,res)=>{
     }
 }
 
-//@desc login user
-//@route POST /api/auth/login
+// login user
+// POST /api/auth/login
 const login = async (req,res)=>{
     try {
         const {email,password} = req.body;

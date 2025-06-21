@@ -1,8 +1,8 @@
 import User from "../models/userModel.js";
 import bcrypt from "bcryptjs";
 
-//@desc Get current user data
-//@route GET /api/user/getprofile
+// Get current user data
+// GET /api/user/getprofile
 const getProfile = async(req,res)=>{
     try {
         const user= req.user;
@@ -20,8 +20,8 @@ const getProfile = async(req,res)=>{
     }
 }
 
-//@desc update user profile
-//@route PATCH /api/user/updateprofile
+// update user profile
+// PATCH /api/user/updateprofile
 const updateProfile = async(req,res)=>{
     try {
         const userId = req.user._id;
@@ -51,8 +51,8 @@ const updateProfile = async(req,res)=>{
 
 }
 
-//@desc Change password for user
-//@route PATCH /api/user/changepassword
+// Change password for user
+// PATCH /api/user/changepassword
 const changePassword = async (req,res)=>{
     try {
         const user = req.user;
@@ -77,8 +77,8 @@ const changePassword = async (req,res)=>{
     }
 }
 
-//@desc Delete account handler
-//@route /api/user/deleteaccount
+// Delete account handler
+// /api/user/deleteaccount
 const deleteAccount = async (req,res)=>{
    try {
         const password = req.body.password;

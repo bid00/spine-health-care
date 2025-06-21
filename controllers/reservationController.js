@@ -1,12 +1,11 @@
 import Reservation from "../models/reservationModel.js";
 
-// @desc book new Reservation
-// @route /api/reservations/book
+//  book new Reservation
+//  /api/reservations/book
 const bookReservation = async (req, res) => {
   try {
     const { date, timeSlot , reportId}=req.body;
     const userId = req.user._id;
-    //@desc Check for duplicate booking at the same time
     const existing = await Reservation.findOne({ date, timeSlot });
     if (existing) {
       return res.status(400).json({ message: 'This time slot is already booked.' });
@@ -31,8 +30,8 @@ const bookReservation = async (req, res) => {
   }
 };
 
-// @desc get user reservations
-// @route /api/reservations/
+//  get user reservations
+//  /api/reservations/
 const getReservations = async(req,res)=>{
   const userId = req.user._id;
   try {
@@ -46,8 +45,8 @@ const getReservations = async(req,res)=>{
   }
 }
 
-// @desc delete reservation
-// @route /api/reservations/delete
+//  delete reservation
+// /api/reservations/delete
 const deleteReservation = async (req,res)=>{
   const userId = req.user._id;
   const reservationId = req.body.reservationId;
@@ -65,8 +64,8 @@ const deleteReservation = async (req,res)=>{
   }
 }
 
-// @desc edit reservation
-// @route /api/reservations/edit
+//  edit reservation
+// /api/reservations/edit
 const editReservation = async(req,res)=>{
   const userId = req.user._id;
   const reservationId = req.body.reservationId;

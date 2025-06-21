@@ -2,15 +2,15 @@ import express from "express";
 import {bookReservation, deleteReservation,getReservations, editReservation} from "../controllers/reservationController.js"
 const router = express.Router();
 
-// @desc book new reservation
+// book new reservation
 router.post("/book",bookReservation);
 
-// @desc delete the reservation
+// delete the reservation
 router.post("/delete",deleteReservation);
 
-// @desc get reservations
+// get reservations
 router.get("/",getReservations);
 
-// @desc edit the reservation
+// edit the reservation
 router.patch("/edit",editReservation);
 export default router;

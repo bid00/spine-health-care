@@ -3,16 +3,16 @@ import { changePassword, deleteAccount, getProfile, updateProfile } from "../con
 import upload from "../middlewares/uploadMiddleware.js";
 const router = express.Router();
 
-//@desc Get Profile
+// Get Profile
 router.get('/profile',getProfile);
 
-//@desc Update Profile
+// Update Profile
 router.patch('/update',upload.single("picture"),updateProfile);
 
-//@desc change Password
+// change Password
 router.patch('/changepassword',changePassword);
 
-//@desc delete account
+// delete account
 router.post('/deleteaccount',deleteAccount);
 
 
